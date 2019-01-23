@@ -1,10 +1,10 @@
-import { USERNAME_CHANGE } from './../types';
+import { USERNAME_CHANGE } from '../types';
 
 const INITIAL_STATE = {
     username: ''
 };
 
-const loginReducer = (state = INITIAL_STATE, action) => {
+export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case USERNAME_CHANGE:
             return {
@@ -15,4 +15,3 @@ const loginReducer = (state = INITIAL_STATE, action) => {
             return state;
     }
 }
-export default loginReducer;
