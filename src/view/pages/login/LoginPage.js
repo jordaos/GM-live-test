@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { usernameChange, loginError } from './../../store/actions/appActions'
+import { usernameChange, loginError } from '../../../store/actions/appActions'
 
 import { Button, FormGroup, FormControl, ControlLabel, HelpBlock } from "react-bootstrap";
 import './LoginPage.css'
@@ -51,28 +51,30 @@ class LoginPage extends Component {
 
     onSubmitForm = (e) => {
         e.preventDefault();
-        this.setState({isLoading: true})
+        this.setState({ isLoading: true })
         this.props.loginError("Username not found");
     }
 
     render() {
         return (
-            <form className="form-signin">
-                <img src={GitHub} className="app-logo"/>
-                <FormGroup
-                    validationState={this.props.error !== '' ? 'error' : null}>
-                    <ControlLabel>GitHub Username:</ControlLabel>
-                    <FormControl
-                        type="text"
-                        value={this.props.username}
-                        onChange={e => this.props.usernameChange(e.target.value)} />
-                    {this.renderErrorMessage()}
-                </FormGroup>
+            <div>
+                <form className="form-signin">
+                    <img src={GitHub} className="app-logo" alt="App logo" />
+                    <FormGroup
+                        validationState={this.props.error !== '' ? 'error' : null}>
+                        <ControlLabel>GitHub Username:</ControlLabel>
+                        <FormControl
+                            type="text"
+                            value={this.props.username}
+                            onChange={e => this.props.usernameChange(e.target.value)} />
+                        {this.renderErrorMessage()}
+                    </FormGroup>
 
-                <FormGroup>
-                    {this.renderSubmitButton()}
-                </FormGroup>
-            </form>
+                    <FormGroup>
+                        {this.renderSubmitButton()}
+                    </FormGroup>
+                </form>
+            </div>
         );
     }
 }
