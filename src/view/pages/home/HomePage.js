@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavbarComponent from '../../components/NavbarComponent';
 import MenuComponent from '../../components/MenuComponent';
 
-import './HomePage.css';
+import AppList from '../../components/AppList';
 
 class HomePage extends Component {
     constructor(props) {
@@ -29,9 +29,14 @@ class HomePage extends Component {
             <div>
                 <NavbarComponent />
                 <div className="container-fluid">
-                    <div className="row">
+                    <div className="row app-content">
                         <MenuComponent 
                             menuList={this.state.menuList}/>
+                        
+                        <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                            <h1>Repositórios com estrelas</h1>
+                            <AppList />
+                        </div>
                     </div>
                 </div>
             </div>
