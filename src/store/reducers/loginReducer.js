@@ -1,7 +1,8 @@
-import { USERNAME_CHANGE } from '../types';
+import { USERNAME_CHANGE, USERNAME_SEARCH_ERROR } from '../types';
 
 const INITIAL_STATE = {
-    username: ''
+    username: '',
+    error: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -10,6 +11,11 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state, 
                 username: action.payload
+            };
+        case USERNAME_SEARCH_ERROR:
+            return {
+                ...state,
+                error: action.payload
             };
         default:
             return state;
