@@ -7,7 +7,7 @@ import { usernameChange, loginError } from '../../../store/actions/appActions'
 import { Button, FormGroup, FormControl, ControlLabel, HelpBlock } from "react-bootstrap";
 import './LoginPage.css'
 import GitHub from './GitHub.png'
-import { USER_STORED, CLIENT_ID, CLIENT_SECRET } from '../../../constants';
+import { USER_STORED } from '../../../constants';
 import GithubClient from '../../../api/GithubClient';
 
 
@@ -62,12 +62,12 @@ class LoginPage extends Component {
         this.githubClient.getUserInfo(this.props.username)
             .then(response => {
                 this.props.loginError('');
+                this.props.usernameChange('')
                 this.setState({ isLoading: false });
                 localStorage.setItem(USER_STORED, JSON.stringify(response.data));
                 this.props.history.push('/home');
             })
             .catch(error => {
-                console.log(error)
                 this.setState({ isLoading: false })
                 this.props.loginError(error.response.data.message);
             });
