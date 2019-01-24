@@ -5,6 +5,7 @@ import { Panel } from "react-bootstrap";
 import NavbarComponent from '../../components/NavbarComponent';
 import MenuComponent from '../../components/MenuComponent';
 import { USER_STORED } from '../../../constants';
+import axios from 'axios';
 
 
 class AboutPage extends Component {
@@ -34,6 +35,14 @@ class AboutPage extends Component {
             ],
             user: JSON.parse(localStorage.getItem(USER_STORED))
         }
+        this.getLatLng();
+    }
+
+    getLatLng() {
+        axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.state.user.location + '&key=AIzaSyDFju5SP3070LLp5WbDEC6SZfFhz__h83c')
+            .then(response => {
+                this.setState({center: response.data.results[0].geometry.location});
+            })
     }
 
     renderMarkers(map, maps) {

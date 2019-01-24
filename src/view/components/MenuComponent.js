@@ -7,7 +7,7 @@ const MenuComponent = ({ user, menuList }) => {
                 <li>
                     <div className="media">
                         <div className="media-left">
-                            <img className="media-object img-profile" src={user.avatar_url} alt="User image" />
+                            <img className="media-object img-profile" src={user.avatar_url} alt="User" />
                         </div>
                         <div className="media-body">
                             <h4 className="media-heading">{user.name}</h4>
