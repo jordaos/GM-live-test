@@ -69,7 +69,7 @@ class AboutPage extends Component {
                             <br />
 
                             <h4><b>Apelido:</b> {this.state.user.login}</h4>
-                            <h4><b>E-mail:</b> {this.state.user.email}</h4>
+                            {this.state.user.email && <h4><b>E-mail:</b> {this.state.user.email}</h4>}
                             <h4><b>URL:</b> {this.state.user.html_url}</h4>
 
                             <Panel>

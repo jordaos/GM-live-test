@@ -7,7 +7,8 @@ import { usernameChange, loginError } from '../../../store/actions/appActions'
 import { Button, FormGroup, FormControl, ControlLabel, HelpBlock } from "react-bootstrap";
 import './LoginPage.css'
 import GitHub from './GitHub.png'
-import { USER_STORED } from '../../../constants';
+import { USER_STORED, CLIENT_ID, CLIENT_SECRET } from '../../../constants';
+import GithubClient from '../../../api/GithubClient';
 
 
 class LoginPage extends Component {
@@ -18,6 +19,8 @@ class LoginPage extends Component {
         this.state = {
             isLoading: false
         }
+
+        this.githubClient = new GithubClient();
     }
 
     renderErrorMessage() {
@@ -35,7 +38,7 @@ class LoginPage extends Component {
                     bsStyle="primary"
                     block
                     onClick={this.onSubmitForm}>
-                    Entrar
+                    Buscar
                 </Button>
             )
         } else {
@@ -45,7 +48,7 @@ class LoginPage extends Component {
                     bsStyle="primary"
                     block
                     disabled>
-                    <i className="fa fa-circle-o-notch fa-spin"></i> Entrar
+                    <i className="fa fa-circle-o-notch fa-spin"></i> Buscar
                 </Button>
             )
         }
@@ -56,7 +59,7 @@ class LoginPage extends Component {
         
         this.setState({ isLoading: true });
 
-        axios.get('https://api.github.com/users/' + this.props.username)
+        this.githubClient.getUserInfo(this.props.username)
             .then(response => {
                 this.props.loginError('');
                 this.setState({ isLoading: false });
@@ -64,6 +67,7 @@ class LoginPage extends Component {
                 this.props.history.push('/home');
             })
             .catch(error => {
+                console.log(error)
                 this.setState({ isLoading: false })
                 this.props.loginError(error.response.data.message);
             });
@@ -71,7 +75,7 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="page-form-content">
                 <form className="form-signin">
                     <img src={GitHub} className="app-logo" alt="App logo" />
                     <FormGroup

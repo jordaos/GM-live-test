@@ -9,6 +9,7 @@ import NavbarComponent from '../../components/NavbarComponent';
 import MenuComponent from '../../components/MenuComponent';
 import AppListComponent from '../../components/AppListComponent';
 import { USER_STORED } from '../../../constants';
+import GithubClient from '../../../api/GithubClient';
 
 class HomePage extends Component {
     constructor(props) {
@@ -30,14 +31,17 @@ class HomePage extends Component {
             user: JSON.parse(localStorage.getItem(USER_STORED)),
             isLoading: true
         }
+        this.githubClient = new GithubClient();
     }
 
     componentDidMount() {
         this.fetchStarredRepositories();
+
+        
     }
 
     fetchStarredRepositories() {
-        axios.get(`https://api.github.com/users/${this.state.user.login}/starred`)
+        this.githubClient.getStarredRepositories(this.state.user.login)
             .then(result => {
                 this.props.repositoriesListChange(result.data);
                 this.setState({isLoading: false});
