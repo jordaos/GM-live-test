@@ -7,7 +7,7 @@ import { repositoriesListChange } from '../../../store/actions/appActions'
 
 import NavbarComponent from '../../components/NavbarComponent';
 import MenuComponent from '../../components/MenuComponent';
-import AppList from '../../components/AppList';
+import AppListComponent from '../../components/AppListComponent';
 import { USER_STORED } from '../../../constants';
 
 class HomePage extends Component {
@@ -56,7 +56,7 @@ class HomePage extends Component {
             );
         } else if (this.props.repositories.length > 0) {
             return (
-                <AppList
+                <AppListComponent
                     data={this.props.repositories} />
             );
         } else {

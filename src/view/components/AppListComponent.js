@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 
-const AppList = (data) => {
+const AppListComponent = (data) => {
     if (data.data.length !== undefined) {
         return (
             <ListGroup>
@@ -19,4 +19,4 @@ const AppList = (data) => {
     return null;
 };
 
-export default AppList;
+export default AppListComponent;
