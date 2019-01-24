@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Panel, Table } from "react-bootstrap";
+import { Panel } from "react-bootstrap";
 
 import NavbarComponent from '../../components/NavbarComponent';
 import MenuComponent from '../../components/MenuComponent';
@@ -32,7 +32,7 @@ class AboutPage extends Component {
     }
 
     renderMarkers(map, maps) {
-        let marker = new maps.Marker({
+        new maps.Marker({
             position: this.state.center,
             map,
             title: 'Hello World!'

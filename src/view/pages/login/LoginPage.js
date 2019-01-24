@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios'
 
 import { usernameChange, loginError } from '../../../store/actions/appActions'
 
@@ -21,7 +22,7 @@ class LoginPage extends Component {
     renderErrorMessage() {
         if (this.props.error !== '')
             return (
-                <HelpBlock>Mensagem de erro.</HelpBlock>
+                <HelpBlock>{this.props.error}</HelpBlock>
             );
     }
 
@@ -43,7 +44,7 @@ class LoginPage extends Component {
                     bsStyle="primary"
                     block
                     disabled>
-                    <i class="fa fa-circle-o-notch fa-spin"></i> Entrar
+                    <i className="fa fa-circle-o-notch fa-spin"></i> Entrar
                 </Button>
             )
         }
@@ -51,8 +52,20 @@ class LoginPage extends Component {
 
     onSubmitForm = (e) => {
         e.preventDefault();
-        this.setState({ isLoading: true })
-        this.props.loginError("Username not found");
+        
+        this.setState({ isLoading: true });
+
+        axios.get('https://api.github.com/users/' + this.props.username)
+            .then(response => {
+                this.props.loginError('');
+                this.setState({ isLoading: false });
+                console.log(response.data)
+            })
+            .catch(error => {
+                this.setState({ isLoading: false })
+                this.props.loginError(error.response.data.message);
+            });
+
     }
 
     render() {
