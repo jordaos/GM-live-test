@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import LoginPage from './view/pages/login/LoginPage';
 import HomePage from './view/pages/home/HomePage';
 import AboutPage from './view/pages/about/AboutPage';
+import LogoutComponent from './view/components/LogoutComponent';
 
 export default class extends Component {
     render() {
@@ -10,8 +11,9 @@ export default class extends Component {
             <Router>
                 <div>
                     <Route exact path="/" component={LoginPage} />
-                    <Route exact path="/home" component={HomePage} />
-                    <Route exact path="/about" component={AboutPage} />
+                    <Route path="/logout" component={LogoutComponent} />
+                    <Route path="/home" component={HomePage} />
+                    <Route path="/about" component={AboutPage} />
                 </div>
             </Router>
         )

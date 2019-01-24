@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
+import axios from 'axios'
+
 import NavbarComponent from '../../components/NavbarComponent';
 import MenuComponent from '../../components/MenuComponent';
-
 import AppList from '../../components/AppList';
 import { USER_STORED } from '../../../constants';
 
 class HomePage extends Component {
     constructor(props) {
         super(props);
-
-        if(!localStorage.getItem(USER_STORED))
-            this.props.history.push('/');
 
         this.state = {
             menuList: [
@@ -25,10 +23,22 @@ class HomePage extends Component {
                     active: false
                 }
             ],
-            user: JSON.parse(localStorage.getItem(USER_STORED))
+            user: JSON.parse(localStorage.getItem(USER_STORED)),
+            repositoriesList: null
         }
+    }
+    
+    componentDidMount() {
+        //this.fetchStarredRepositories();
+    }
 
-        console.log(this.state.user);
+    fetchStarredRepositories() {
+        axios.get(`https://api.github.com/users/${this.state.user.login}/starred`)
+            .then(result => {
+                this.setState({repositoriesList: result.data});
+            }).catch(error => {
+                console.log(error);
+            });
     }
 
     render() {
@@ -43,7 +53,8 @@ class HomePage extends Component {
                         
                         <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                             <h1>Repositórios com estrelas</h1>
-                            <AppList />
+                            <AppList 
+                                data={this.state.repositoriesList}/>
                         </div>
                     </div>
                 </div>
