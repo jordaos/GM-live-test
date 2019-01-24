@@ -3,10 +3,14 @@ import NavbarComponent from '../../components/NavbarComponent';
 import MenuComponent from '../../components/MenuComponent';
 
 import AppList from '../../components/AppList';
+import { USER_STORED } from '../../../constants';
 
 class HomePage extends Component {
     constructor(props) {
         super(props);
+
+        if(!localStorage.getItem(USER_STORED))
+            this.props.history.push('/');
 
         this.state = {
             menuList: [
@@ -20,8 +24,11 @@ class HomePage extends Component {
                     href: "/about",
                     active: false
                 }
-            ]
+            ],
+            user: JSON.parse(localStorage.getItem(USER_STORED))
         }
+
+        console.log(this.state.user);
     }
 
     render() {
@@ -30,7 +37,8 @@ class HomePage extends Component {
                 <NavbarComponent />
                 <div className="container-fluid">
                     <div className="row app-content">
-                        <MenuComponent 
+                        <MenuComponent
+                            user={this.state.user}
                             menuList={this.state.menuList}/>
                         
                         <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

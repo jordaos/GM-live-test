@@ -4,11 +4,15 @@ import { Panel } from "react-bootstrap";
 
 import NavbarComponent from '../../components/NavbarComponent';
 import MenuComponent from '../../components/MenuComponent';
+import { USER_STORED } from '../../../constants';
 
 
 class AboutPage extends Component {
     constructor(props) {
         super(props);
+
+        if(!localStorage.getItem(USER_STORED))
+            this.props.history.push('/');
 
         this.state = {
             center: {
@@ -27,7 +31,8 @@ class AboutPage extends Component {
                     href: "/about",
                     active: true
                 }
-            ]
+            ],
+            user: JSON.parse(localStorage.getItem(USER_STORED))
         }
     }
 
@@ -46,6 +51,7 @@ class AboutPage extends Component {
                 <div className="container-fluid">
                     <div className="row app-content">
                         <MenuComponent
+                            user={this.state.user}
                             menuList={this.state.menuList} />
 
                         <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -53,15 +59,15 @@ class AboutPage extends Component {
 
                             <br />
 
-                            <h4><b>Apelido:</b> jordaos</h4>
-                            <h4><b>E-mail:</b> jordao05@hotmail.com</h4>
-                            <h4><b>URL:</b> htps://github.com/jordaos</h4>
+                            <h4><b>Apelido:</b> {this.state.user.login}</h4>
+                            <h4><b>E-mail:</b> {this.state.user.email}</h4>
+                            <h4><b>URL:</b> {this.state.user.html_url}</h4>
 
                             <Panel>
                                 <Panel.Heading>
                                     <Panel.Title componentClass="h3">Biografia</Panel.Title>
                                 </Panel.Heading>
-                                <Panel.Body>Panel content</Panel.Body>
+                                <Panel.Body>{this.state.user.bio}</Panel.Body>
                             </Panel>
 
                             <div style={{ height: '70vh', width: '100%' }}>
