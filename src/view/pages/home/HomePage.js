@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import { connect } from 'react-redux';
+import axios from 'axios';
+
+import { repositoriesListChange } from '../../../store/actions/appActions'
 
 import NavbarComponent from '../../components/NavbarComponent';
 import MenuComponent from '../../components/MenuComponent';
@@ -29,13 +32,13 @@ class HomePage extends Component {
     }
     
     componentDidMount() {
-        //this.fetchStarredRepositories();
+        this.fetchStarredRepositories();
     }
 
     fetchStarredRepositories() {
         axios.get(`https://api.github.com/users/${this.state.user.login}/starred`)
             .then(result => {
-                this.setState({repositoriesList: result.data});
+                this.props.repositoriesListChange(result.data);
             }).catch(error => {
                 console.log(error);
             });
@@ -54,7 +57,7 @@ class HomePage extends Component {
                         <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                             <h1>Repositórios com estrelas</h1>
                             <AppList 
-                                data={this.state.repositoriesList}/>
+                                data={this.props.repositories}/>
                         </div>
                     </div>
                 </div>
@@ -63,4 +66,12 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+const mapStateToProps = state => ({
+    repositories: state.repositoriesReducer.repositories
+});
+
+const mapDispatchToProps = {
+    repositoriesListChange
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

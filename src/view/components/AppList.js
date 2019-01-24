@@ -2,14 +2,14 @@ import React from 'react';
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 
 const AppList = (data) => {
-    if (data.length !== undefined) {
+    if (data.data.length !== undefined) {
         return (
             <ListGroup>
-                {data.map((item, index) => {
+                {data.data.map((item, index) => {
                     return (
-                        <ListGroupItem header="Heading 2" href="#">
-                            Linked item
-                    </ListGroupItem>
+                        <ListGroupItem header={item.name} href={item.html_url} key={index}>
+                            @{item.owner.login} | {item.stargazers_count} <i className="fa fa-star"></i>
+                        </ListGroupItem>
                     )
                 })}
 

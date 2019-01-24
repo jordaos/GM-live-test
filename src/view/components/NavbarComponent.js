@@ -12,7 +12,7 @@ const NavbarComponent = () => {
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                     </button>
-                    <a className="navbar-brand" href="/home">Project name</a>
+                    <a className="navbar-brand" href="/home">Github API</a>
                 </div>
                 <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav navbar-right">
