@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import { Alert } from "react-bootstrap";
 import { repositoriesListChange } from '../../../store/actions/appActions'
 
 import NavbarComponent from '../../components/NavbarComponent';
@@ -27,10 +28,10 @@ class HomePage extends Component {
                 }
             ],
             user: JSON.parse(localStorage.getItem(USER_STORED)),
-            repositoriesList: null
+            isLoading: true
         }
     }
-    
+
     componentDidMount() {
         this.fetchStarredRepositories();
     }
@@ -39,9 +40,26 @@ class HomePage extends Component {
         axios.get(`https://api.github.com/users/${this.state.user.login}/starred`)
             .then(result => {
                 this.props.repositoriesListChange(result.data);
+                this.setState({isLoading: false});
             }).catch(error => {
                 console.log(error);
             });
+    }
+
+    renderListOrMessage = () => {
+        if (this.state.isLoading) {
+            return (
+                <Alert bsStyle="info">
+                    <i className="fa fa-circle-o-notch fa-spin"></i>
+                    <strong> Carregado...</strong>
+                </Alert>
+            );
+        } else {
+            return (
+                <AppList
+                    data={this.props.repositories} />
+            );
+        }
     }
 
     render() {
@@ -52,12 +70,11 @@ class HomePage extends Component {
                     <div className="row app-content">
                         <MenuComponent
                             user={this.state.user}
-                            menuList={this.state.menuList}/>
-                        
+                            menuList={this.state.menuList} />
+
                         <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                             <h1>Repositórios com estrelas</h1>
-                            <AppList 
-                                data={this.props.repositories}/>
+                            {this.renderListOrMessage()}
                         </div>
                     </div>
                 </div>
