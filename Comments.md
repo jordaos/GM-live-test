@@ -13,3 +13,4 @@
     - Motivo: a lista é atualizada no state, mas não atualiza no prop do outro component
 - Adicionando Google Maps
 - Mostrando informações do usuário
+- Listar repositórios funcionou. Passei a armazenas a lista no Redux.

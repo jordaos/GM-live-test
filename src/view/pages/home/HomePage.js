@@ -54,10 +54,17 @@ class HomePage extends Component {
                     <strong> Carregado...</strong>
                 </Alert>
             );
-        } else {
+        } else if (this.props.repositories.length > 0) {
             return (
                 <AppList
                     data={this.props.repositories} />
+            );
+        } else {
+            return (
+                <Alert bsStyle="warning">
+                    <i className="fa fa-warning"></i>
+                    <strong> Nenhum repositório encontrado</strong>
+                </Alert>
             );
         }
     }
