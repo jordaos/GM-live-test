@@ -3,6 +3,7 @@ export const USERNAME_SEARCH_ERROR = 'usernameSearchError';
 export const REPOSITORIES_LIST_CHANGE = 'repositoriesListChange';
 export const USER_AUTHENTICATED_CHANGE = 'userAuthenticatedChange';
 export const LAT_LNG_CHANGE = 'latLngChange';
+export const LOGIN_BUTTON_CLICK = 'loginButtonClick';
 
 export const usernameChange = username => ({
     type: USERNAME_CHANGE,
@@ -27,4 +28,9 @@ export const userAuthenticatedChange = isAuthenticated => ({
 export const latLngChange = latLng => ({
     type: LAT_LNG_CHANGE,
     payload: latLng
-})
+});
+
+export const loginButtonClick = (isLoading) => ({
+    type: LOGIN_BUTTON_CLICK,
+    payload: isLoading
+});
