@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 const MenuComponent = ({ user, menuList }) => {
     return (
@@ -16,7 +17,7 @@ const MenuComponent = ({ user, menuList }) => {
                     </div>
                 </li>
                 {menuList.map((item, index) => {
-                    return (<li key={index}><a href={item.href} className={item.active ? 'active' : ''}>{item.title}</a></li>)
+                    return (<li key={index}><Link to={item.href} className={item.active ? 'active' : ''}>{item.title}</Link></li>)
                 })}
             </ul>
         </div>
