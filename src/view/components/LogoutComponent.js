@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import { USER_STORED } from '../../constants';
-import { userAuthenticatedChange, repositoriesListChange } from './../../store/actions/appActions';
+import { userAuthenticatedChange, repositoriesListChange, latLngChange } from './../../store/actions/appActions';
 
 class LogoutComponent extends Component {
 
@@ -13,6 +13,7 @@ class LogoutComponent extends Component {
         localStorage.removeItem(USER_STORED);
         this.props.userAuthenticatedChange(false);
         this.props.repositoriesListChange({});
+        this.props.latLngChange({lat: 0, lng: 0});
     }
 
     render() {
@@ -21,15 +22,12 @@ class LogoutComponent extends Component {
         );
     }
 }
-
-const mapStateToProps = state => ({
-    isAuthenticated: state.loginReducer.isAuthenticated,
-    repositories: state.repositoriesReducer.repositories
-});
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
     userAuthenticatedChange,
-    repositoriesListChange
+    repositoriesListChange,
+    latLngChange
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoutComponent);

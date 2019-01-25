@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import { connect } from 'react-redux';
 import { Panel } from "react-bootstrap";
+
+import { latLngChange } from '../../../store/actions/appActions'
 
 import NavbarComponent from '../../components/NavbarComponent';
 import MenuComponent from '../../components/MenuComponent';
@@ -16,10 +19,6 @@ class AboutPage extends Component {
             this.props.history.push('/');
 
         this.state = {
-            center: {
-                lat: 59.95,
-                lng: 30.33
-            },
             zoom: 11,
             menuList: [
                 {
@@ -41,13 +40,14 @@ class AboutPage extends Component {
     getLatLng() {
         axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.state.user.location + '&key=AIzaSyDFju5SP3070LLp5WbDEC6SZfFhz__h83c')
             .then(response => {
-                this.setState({center: response.data.results[0].geometry.location});
+                const { lat, lng } = response.data.results[0].geometry.location;
+                this.props.latLngChange({lat, lng});
             })
     }
 
     renderMarkers(map, maps) {
         new maps.Marker({
-            position: this.state.center,
+            position: this.props.latLng,
             map,
             title: 'Hello World!'
         });
@@ -80,12 +80,14 @@ class AboutPage extends Component {
                             </Panel>
 
                             <div style={{ height: '70vh', width: '100%' }}>
+                            {this.props.latLng.lat && this.props.latLng.lng &&
                                 <GoogleMapReact
                                     bootstrapURLKeys={{ key: "AIzaSyCYI7KqYTpqkc5GX0LCKBaOLU5q6K4Bxj0" }}
-                                    defaultCenter={this.state.center}
+                                    defaultCenter={this.props.latLng}
                                     defaultZoom={this.state.zoom}
                                     onGoogleApiLoaded={({ map, maps }) => this.renderMarkers(map, maps)}
                                 ></GoogleMapReact>
+                            }
                             </div>
                         </div>
                     </div>
@@ -95,4 +97,12 @@ class AboutPage extends Component {
     }
 }
 
-export default AboutPage;
+const mapStateToProps = state => ({
+    latLng: state.mapReducer.latLng
+});
+
+const mapDispatchToProps = {
+    latLngChange
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AboutPage);
