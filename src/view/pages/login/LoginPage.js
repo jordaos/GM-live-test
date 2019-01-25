@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { usernameChange, loginError } from '../../../store/actions/appActions'
+import { usernameChange, loginError, userAuthenticatedChange } from '../../../store/actions/appActions'
 
 import { Button, FormGroup, FormControl, ControlLabel, HelpBlock } from "react-bootstrap";
 import './LoginPage.css'
@@ -16,6 +16,12 @@ class LoginPage extends Component {
 
         this.state = {
             isLoading: false
+        }
+    }
+    componentDidMount() {
+        if(localStorage.getItem(USER_STORED)){
+            this.props.userAuthenticatedChange(true);
+            this.props.history.push('/home');
         }
     }
 
@@ -61,6 +67,7 @@ class LoginPage extends Component {
                 this.props.usernameChange('')
                 this.setState({ isLoading: false });
                 localStorage.setItem(USER_STORED, JSON.stringify(response.data));
+                this.props.userAuthenticatedChange(true);
                 this.props.history.push('/home');
             })
             .catch(error => {
@@ -95,12 +102,14 @@ class LoginPage extends Component {
 
 const mapStateToProps = state => ({
     username: state.loginReducer.username,
-    error: state.loginReducer.error
+    error: state.loginReducer.error,
+    isAuthenticated: state.loginReducer.isAuthenticated
 });
 
 const mapDispatchToProps = {
     usernameChange,
-    loginError
+    loginError,
+    userAuthenticatedChange
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

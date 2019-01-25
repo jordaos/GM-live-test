@@ -1,14 +1,35 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
 
 import { USER_STORED } from '../../constants';
+import { userAuthenticatedChange, repositoriesListChange } from './../../store/actions/appActions';
 
-const LogoutComponent = () => {
-    localStorage.removeItem(USER_STORED);
+class LogoutComponent extends Component {
 
-    return (
-        <Redirect to="/"/>
-    );
+    constructor(props) {
+        super(props);
+
+        localStorage.removeItem(USER_STORED);
+        this.props.userAuthenticatedChange(false);
+        this.props.repositoriesListChange({});
+    }
+
+    render() {
+        return (
+            <Redirect to="/"/>
+        );
+    }
 }
 
-export default LogoutComponent;
+const mapStateToProps = state => ({
+    isAuthenticated: state.loginReducer.isAuthenticated,
+    repositories: state.repositoriesReducer.repositories
+});
+
+const mapDispatchToProps = {
+    userAuthenticatedChange,
+    repositoriesListChange
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogoutComponent);

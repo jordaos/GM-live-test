@@ -1,8 +1,9 @@
-import { USERNAME_CHANGE, USERNAME_SEARCH_ERROR } from './../actions/appActions';
+import { USERNAME_CHANGE, USERNAME_SEARCH_ERROR, USER_AUTHENTICATED_CHANGE } from './../actions/appActions';
 
 const INITIAL_STATE = {
     username: '',
-    error: ''
+    error: '',
+    isAuthenticated: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -17,6 +18,11 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 error: action.payload
             };
+        case USER_AUTHENTICATED_CHANGE:
+            return {
+                ...state,
+                isAuthenticated: action.payload
+            }
         default:
             return state;
     }
