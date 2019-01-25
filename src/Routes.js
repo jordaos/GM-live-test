@@ -13,7 +13,7 @@ import { userAuthenticatedChange } from './store/actions/appActions'
 class Routes extends Component {
     render() {
         return (
-            <Router>
+            <Router basename="/GM-live-test">
                 <div>
                     <Route exact path="/" component={LoginPage} />
                     <Route path="/logout" component={LogoutComponent} />

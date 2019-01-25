@@ -14,3 +14,6 @@
 - Adicionando Google Maps
 - Mostrando informações do usuário
 - Listar repositórios funcionou. Passei a armazenas a lista no Redux.
+
+- Tantando fazer login com a API do github. Não deu certo, pois sempre exibia um erro de CORS, o qual não consegui resolver. Esse erro deu mesmo quando subi a aplicação para o github Pages.
+- Fazendo testes. Nenhum problema aqui.
