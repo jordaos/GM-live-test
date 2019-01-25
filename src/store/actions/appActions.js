@@ -1,4 +1,6 @@
-import { USERNAME_CHANGE, USERNAME_SEARCH_ERROR, REPOSITORIES_LIST_CHANGE } from '../types';
+export const USERNAME_CHANGE = 'usernameChange';
+export const USERNAME_SEARCH_ERROR = 'usernameSearchError';
+export const REPOSITORIES_LIST_CHANGE = 'repositoriesListChange';
 
 export const usernameChange = username => ({
     type: USERNAME_CHANGE,

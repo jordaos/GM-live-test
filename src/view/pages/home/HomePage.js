@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import { Alert } from "react-bootstrap";
 import { repositoriesListChange } from '../../../store/actions/appActions'
@@ -9,7 +8,7 @@ import NavbarComponent from '../../components/NavbarComponent';
 import MenuComponent from '../../components/MenuComponent';
 import AppListComponent from '../../components/AppListComponent';
 import { USER_STORED } from '../../../constants';
-import GithubClient from '../../../api/GithubClient';
+import * as client from '../../../api';
 
 class HomePage extends Component {
     constructor(props) {
@@ -31,7 +30,6 @@ class HomePage extends Component {
             user: JSON.parse(localStorage.getItem(USER_STORED)),
             isLoading: true
         }
-        this.githubClient = new GithubClient();
     }
 
     componentDidMount() {
@@ -41,7 +39,7 @@ class HomePage extends Component {
     }
 
     fetchStarredRepositories() {
-        this.githubClient.getStarredRepositories(this.state.user.login)
+        client.getStarredRepositories(this.state.user.login)
             .then(result => {
                 this.props.repositoriesListChange(result.data);
                 this.setState({isLoading: false});

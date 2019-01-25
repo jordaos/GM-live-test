@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import { usernameChange, loginError } from '../../../store/actions/appActions'
 
@@ -8,8 +7,7 @@ import { Button, FormGroup, FormControl, ControlLabel, HelpBlock } from "react-b
 import './LoginPage.css'
 import GitHub from './GitHub.png'
 import { USER_STORED } from '../../../constants';
-import GithubClient from '../../../api/GithubClient';
-
+import * as client from '../../../api';
 
 class LoginPage extends Component {
 
@@ -19,8 +17,6 @@ class LoginPage extends Component {
         this.state = {
             isLoading: false
         }
-
-        this.githubClient = new GithubClient();
     }
 
     renderErrorMessage() {
@@ -59,7 +55,7 @@ class LoginPage extends Component {
         
         this.setState({ isLoading: true });
 
-        this.githubClient.getUserInfo(this.props.username)
+        client.getUserInfo(this.props.username)
             .then(response => {
                 this.props.loginError('');
                 this.props.usernameChange('')

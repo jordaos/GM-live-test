@@ -1,4 +1,4 @@
-import { USERNAME_CHANGE, USERNAME_SEARCH_ERROR } from '../types';
+import { USERNAME_CHANGE, USERNAME_SEARCH_ERROR } from './../actions/appActions';
 
 const INITIAL_STATE = {
     username: '',

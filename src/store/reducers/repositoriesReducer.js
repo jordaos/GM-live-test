@@ -1,4 +1,4 @@
-import { REPOSITORIES_LIST_CHANGE } from '../types';
+import { REPOSITORIES_LIST_CHANGE } from './../actions/appActions';
 
 const INITIAL_STATE = {
     repositories: {}

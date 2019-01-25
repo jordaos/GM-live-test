@@ -19,6 +19,10 @@ code {
   height: 50px;
 }
 
+.nav-sidebar > li > a.active {
+  background: #0000001a;
+  color: #505050;
+}
 
 /* LOGGED PAGES */
 /*
