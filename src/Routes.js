@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import LoginPage from './view/pages/login/LoginPage';
@@ -33,4 +34,4 @@ const mapDispatchToProps = {
     userAuthenticatedChange
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Routes);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Routes));

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { usernameChange, loginError, userAuthenticatedChange } from '../../../store/actions/appActions'
+import { usernameChange, loginError, userAuthenticatedChange, loginButtonClick } from '../../../store/actions/appActions'
 
 import { Button, FormGroup, FormControl, ControlLabel, HelpBlock } from "react-bootstrap";
 import './LoginPage.css'
 import GitHub from './GitHub.png'
 import { USER_STORED } from '../../../constants';
-import * as client from '../../../api';
 
 class LoginPage extends Component {
 
@@ -61,19 +60,7 @@ class LoginPage extends Component {
         
         this.setState({ isLoading: true });
 
-        client.getUserInfo(this.props.username)
-            .then(response => {
-                this.props.loginError('');
-                this.props.usernameChange('')
-                this.setState({ isLoading: false });
-                localStorage.setItem(USER_STORED, JSON.stringify(response.data));
-                this.props.userAuthenticatedChange(true);
-                this.props.history.push('/home');
-            })
-            .catch(error => {
-                this.setState({ isLoading: false })
-                this.props.loginError(error.response.data.message);
-            });
+        this.props.loginButtonClick();
     }
 
     render() {
@@ -109,7 +96,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     usernameChange,
     loginError,
-    userAuthenticatedChange
+    userAuthenticatedChange,
+    loginButtonClick
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
